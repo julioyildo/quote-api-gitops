@@ -1,0 +1,15 @@
+apiVersion: kustomize.config.k8s.io/v1beta1
+kind: Kustomization
+
+# Point de départ : tout ce qui est commun
+resources:
+  - ../../base
+
+# Tous les objets iront dans ce namespace
+namespace: quote-dev
+
+# Remplace l'image générique "quote-api" par l'image réelle de dev
+images:
+  - name: quote-api
+    newName: europe-west1-docker.pkg.dev/trash-492520/apps/quote-api
+    newTag: v1
