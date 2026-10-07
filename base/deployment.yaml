@@ -14,6 +14,10 @@ spec:
       labels:
         app: quote-api
     spec:
+      securityContext:             # règles de sécurité pour tout le pod
+        runAsNonRoot: true         # refuse de démarrer si l'image tourne en root
+        seccompProfile:
+          type: RuntimeDefault     # filtre les appels système dangereux
       containers:
         - name: quote-api
           image: quote-api   # nom générique, remplacé par l'image réelle dans l'overlay dev
@@ -34,6 +38,10 @@ spec:
               port: http
             initialDelaySeconds: 10
             periodSeconds: 10
+          securityContext:         # règles de sécurité pour ce conteneur
+            allowPrivilegeEscalation: false   # interdit de devenir root en cours de route
+            capabilities:
+              drop: ["ALL"]        # retire tous les privilèges Linux spéciaux
           resources:
             requests:
               cpu: 100m
