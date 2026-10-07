@@ -14,6 +14,7 @@ spec:
       labels:
         app: quote-api
     spec:
+      serviceAccountName: quote-api   # identité propre au pod (au lieu de "default")
       securityContext:             # règles de sécurité pour tout le pod
         runAsNonRoot: true         # refuse de démarrer si l'image tourne en root
         seccompProfile:
