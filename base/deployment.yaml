@@ -23,6 +23,17 @@ spec:
           envFrom:
             - configMapRef:
                 name: quote-api-config   # toutes les clés deviennent des variables d'environnement
+          readinessProbe:          # "es-tu prêt à recevoir du trafic ?" sinon retiré du Service
+            httpGet:
+              path: /readyz
+              port: http
+            periodSeconds: 5
+          livenessProbe:           # "es-tu encore en vie ?" sinon le conteneur est redémarré
+            httpGet:
+              path: /healthz
+              port: http
+            initialDelaySeconds: 10
+            periodSeconds: 10
           resources:
             requests:
               cpu: 100m
