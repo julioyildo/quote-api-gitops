@@ -6,6 +6,11 @@ metadata:
     app: quote-api
 spec:
   replicas: 2
+  strategy:
+    type: RollingUpdate
+    rollingUpdate:
+      maxSurge: 1          # au plus 1 pod en plus pendant la mise à jour (3 au total)
+      maxUnavailable: 0    # jamais moins de 2 pods prêts : aucune coupure
   selector:
     matchLabels:
       app: quote-api
