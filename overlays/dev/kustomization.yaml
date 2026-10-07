@@ -20,3 +20,4 @@ configMapGenerator:
     behavior: merge
     literals:
       - LOG_LEVEL=debug
+      - VAT_RATE=0.10
