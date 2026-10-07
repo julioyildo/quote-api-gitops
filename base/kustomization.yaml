@@ -4,3 +4,10 @@ kind: Kustomization
 resources:
   - deployment.yaml
   - service.yaml
+
+# Génère une ConfigMap à partir de ces valeurs (variables d'environnement de l'appli)
+configMapGenerator:
+  - name: quote-api-config
+    literals:
+      - VAT_RATE=0.20
+      - LOG_LEVEL=info

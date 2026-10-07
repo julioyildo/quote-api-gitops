@@ -20,6 +20,9 @@ spec:
           ports:
             - name: http
               containerPort: 8080
+          envFrom:
+            - configMapRef:
+                name: quote-api-config   # toutes les clés deviennent des variables d'environnement
           resources:
             requests:
               cpu: 100m

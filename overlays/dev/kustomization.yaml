@@ -13,3 +13,10 @@ images:
   - name: quote-api
     newName: europe-west1-docker.pkg.dev/trash-492520/apps/quote-api
     newTag: v1
+
+# En dev, on surcharge uniquement LOG_LEVEL
+configMapGenerator:
+  - name: quote-api-config
+    behavior: merge
+    literals:
+      - LOG_LEVEL=debug
