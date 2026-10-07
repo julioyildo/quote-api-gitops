@@ -1,0 +1,26 @@
+apiVersion: argoproj.io/v1alpha1
+kind: Application
+metadata:
+  name: quote-api-dev
+  namespace: argocd
+spec:
+  project: default
+
+  # OÙ lire : le dépôt Git et le dossier de l'environnement dev
+  source:
+    repoURL: https://github.com/julioyildo/quote-api-gitops.git
+    targetRevision: main
+    path: overlays/dev
+
+  # OÙ déployer : ce cluster, dans le namespace quote-dev
+  destination:
+    server: https://kubernetes.default.svc
+    namespace: quote-dev
+
+  # COMMENT : synchronisation automatique
+  syncPolicy:
+    automated:
+      prune: true      # supprime du cluster ce qui a été retiré de Git
+      selfHeal: true   # annule les modifications faites à la main dans le cluster
+    syncOptions:
+      - CreateNamespace=true   # crée le namespace quote-dev s'il n'existe pas
